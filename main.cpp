@@ -6,9 +6,9 @@ using namespace std;
 int main(int argc, char *argv[]) {
 
     Menu theMainMenu("DEV WAKE");
-    string server_ip_address = theMainMenu.get_string("Please WakeOnLan server IP Address: ");
+    string wol_svr_ip_addr = theMainMenu.get_string("Please WakeOnLan server IP Address: ");
 
-    cout << "WakeOnLan server IP: " << server_ip_address << "\n";
+    cout << "WakeOnLan server IP: " << wol_svr_ip_addr << "\n";
 
     return 0;
 }
