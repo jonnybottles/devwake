@@ -13,7 +13,7 @@ void usage(void) {
     cout << "./devwake\n";
 }
 
-// Parses command line arguments in a manner that is OS agonostic, working on NIX and Windows.
+// Parses command line arguments in a manner that is OS agonostic, allowing it to work on NIX and Windows.
 Configuration parse_arg_configs(int argc, char *argv[]) {
 
     Configuration the_configuration;
