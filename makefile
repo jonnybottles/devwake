@@ -10,7 +10,7 @@ CXXFLAGS = -Wall -std=c++20
 TARGET = devwake
 
 # a list of all the cpp files in the project
-CPP_FILES = main.cpp menu.cpp main_menu.cpp configuration.cpp 
+CPP_FILES = main.cpp menu.cpp configuration.cpp main_menu.cpp
 
 all: $(TARGET)
 

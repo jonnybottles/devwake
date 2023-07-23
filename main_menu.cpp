@@ -15,7 +15,6 @@ void MainMenu::get_wol_svr_ip(void) {
         try {
             the_configuration.wol_svr_ip_addr = get_string("Please enter WakeOnLan server IP Address: ");
             the_configuration.set_wol_svr_ip_addr(the_configuration.wol_svr_ip_addr);
-            cout << "WakeOnLan server IP: " << the_configuration.wol_svr_ip_addr << "\n";
             break;
         }
 
@@ -30,7 +29,6 @@ void MainMenu::get_wol_tgt_ip(void) {
         try {
             the_configuration.wol_tgt_ip_addr = get_string("Please enter IP address of the host you would like to wake up: ");
             the_configuration.set_wol_tgt_ip_addr(the_configuration.wol_tgt_ip_addr);
-            cout << "WakeOnLan tgt IP: " << the_configuration.wol_tgt_ip_addr << "\n";
             break;
         }
 

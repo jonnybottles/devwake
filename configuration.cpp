@@ -10,17 +10,17 @@ Configuration::Configuration() {
     wol_tgt_ip_addr = "";
 }
 
-void Configuration::set_wol_svr_ip_addr(string &wol_svr_ip_addr) {
-    if (is_valid_ip_addr(wol_svr_ip_addr)) {
-        wol_svr_ip_addr = wol_svr_ip_addr;
+void Configuration::set_wol_svr_ip_addr(string &new_wol_svr_ip_addr) {
+    if (is_valid_ip_addr(new_wol_svr_ip_addr)) {
+        this->wol_svr_ip_addr = new_wol_svr_ip_addr;
     } else {
         throw invalid_argument("Invalid IPv4 address.\n");
     }
 }
 
-void Configuration::set_wol_tgt_ip_addr(string &wol_tgt_ip_addr) {
-    if (is_valid_ip_addr(wol_tgt_ip_addr)) {
-        wol_tgt_ip_addr = wol_tgt_ip_addr;
+void Configuration::set_wol_tgt_ip_addr(string &new_wol_tgt_ip_addr) {
+    if (is_valid_ip_addr(new_wol_tgt_ip_addr)) {
+        this->wol_tgt_ip_addr = new_wol_tgt_ip_addr;
     } else {
         throw invalid_argument("Invalid IPv4 address.\n");
     }
@@ -57,4 +57,12 @@ bool Configuration::is_valid_ip_addr(string &ip_addr) {
     }
 
     return true;
+}
+
+// Using const ensure that this function does not accidently change any member variables.
+// Since this function only validates info, it should not be able to change info
+bool Configuration::is_valid() const {
+    // Check if the configuration is valid. This could be as simple as checking if
+    // the IP addresses are not empty, or more complex depending on your needs.
+    return !wol_svr_ip_addr.empty() && !wol_tgt_ip_addr.empty();
 }

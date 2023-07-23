@@ -13,8 +13,6 @@ class MainMenu : public Menu {
     void get_wol_svr_ip(void);
     void get_wol_tgt_ip(void);
     void start() override;
-
-  private:
     Configuration the_configuration;
 };
 

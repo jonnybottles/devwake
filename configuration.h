@@ -16,6 +16,7 @@ class Configuration {
     void set_wol_svr_ip_addr(string &wol_svr_ip_addr);
     void set_wol_tgt_ip_addr(string &wol_svr_ip_addr);
     bool is_valid_ip_addr(string &ip_addr);
+    bool is_valid() const;
 };
 
 #endif
