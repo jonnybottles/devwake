@@ -11,6 +11,7 @@ class MainMenu : public Menu {
   public:
     MainMenu(const string &menu_name);
     void get_wol_svr_ip(void);
+    void get_wol_tgt_ip(void);
     void start() override;
 
   private:

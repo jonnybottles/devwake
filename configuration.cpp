@@ -7,11 +7,20 @@ using namespace std;
 
 Configuration::Configuration() {
     wol_svr_ip_addr = "";
+    wol_tgt_ip_addr = "";
 }
 
 void Configuration::set_wol_svr_ip_addr(string &wol_svr_ip_addr) {
     if (is_valid_ip_addr(wol_svr_ip_addr)) {
         wol_svr_ip_addr = wol_svr_ip_addr;
+    } else {
+        throw invalid_argument("Invalid IPv4 address.\n");
+    }
+}
+
+void Configuration::set_wol_tgt_ip_addr(string &wol_tgt_ip_addr) {
+    if (is_valid_ip_addr(wol_tgt_ip_addr)) {
+        wol_tgt_ip_addr = wol_tgt_ip_addr;
     } else {
         throw invalid_argument("Invalid IPv4 address.\n");
     }
