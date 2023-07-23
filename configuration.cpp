@@ -8,6 +8,7 @@ using namespace std;
 Configuration::Configuration() {
     wol_svr_ip_addr = "";
     wol_tgt_ip_addr = "";
+    wol_tgt_mac_addr = "";
 }
 
 void Configuration::set_wol_svr_ip_addr(string &new_wol_svr_ip_addr) {
@@ -24,6 +25,42 @@ void Configuration::set_wol_tgt_ip_addr(string &new_wol_tgt_ip_addr) {
     } else {
         throw invalid_argument("Invalid IPv4 address.\n");
     }
+}
+
+void Configuration::set_wol_tgt_mac_addr(string &new_wol_tgt_mac_addr) {
+    if (is_valid_mac_addr(new_wol_tgt_mac_addr)) {
+        this->wol_tgt_mac_addr = new_wol_tgt_mac_addr;
+    } else {
+        throw invalid_argument("Invalid MAC address.\n");
+    }
+}
+
+bool Configuration::is_valid_mac_addr(const string &mac_addr) {
+    std::stringstream ss(mac_addr);
+    std::string segment;
+    std::vector<std::string> segments;
+
+    while (std::getline(ss, segment, ':')) {
+        segments.push_back(segment);
+    }
+
+    if (segments.size() != 6) {
+        return false;
+    }
+
+    for (std::string &seg : segments) {
+        if (seg.size() != 2) {
+            return false;
+        }
+
+        for (char c : seg) {
+            if (!isxdigit(c)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 bool Configuration::is_valid_ip_addr(string &ip_addr) {

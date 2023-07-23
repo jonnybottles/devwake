@@ -38,7 +38,22 @@ void MainMenu::get_wol_tgt_ip(void) {
     }
 }
 
+void MainMenu::get_wol_tgt_mac(void) {
+    while (true) {
+        try {
+            the_configuration.wol_tgt_mac_addr = get_string("Please enter MAC address of the host you would like to wake up: ");
+            the_configuration.set_wol_tgt_mac_addr(the_configuration.wol_tgt_mac_addr);
+            break;
+        }
+
+        catch (invalid_argument &e) {
+            cout << e.what() << "Please try again.\n";
+        }
+    }
+}
+
 void MainMenu::start() {
     get_wol_svr_ip();
     get_wol_tgt_ip();
+    get_wol_tgt_mac();
 }

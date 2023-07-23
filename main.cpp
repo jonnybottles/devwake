@@ -13,9 +13,8 @@ void usage(void) {
     cout << "./devwake\n";
 }
 
-// Parses command line arguments in a manner that is OS agonostic, allowing it to work on NIX and Windows.
+// Parses command line arguments in a manner that is OS agnostic, allowing it to work on NIX and Windows.
 Configuration parse_arg_configs(int argc, char *argv[]) {
-
     Configuration the_configuration;
     // Iterate over the command-line arguments, skipping argv[0] (the program name)
     for (int i = 1; i < argc; ++i) {
@@ -31,7 +30,6 @@ Configuration parse_arg_configs(int argc, char *argv[]) {
                 // Assign the next argument to the WOL IP variable and increment the index
                 try {
                     the_configuration.set_wol_svr_ip_addr(next_arg);
-
                 } catch (invalid_argument &e) {
                     cerr << e.what();
                     return Configuration(); // Empty configuration.
@@ -50,13 +48,30 @@ Configuration parse_arg_configs(int argc, char *argv[]) {
                 // Assign the next argument to the target IP variable and increment the index
                 try {
                     the_configuration.set_wol_tgt_ip_addr(next_arg);
-
                 } catch (invalid_argument &e) {
                     cerr << e.what();
                     return Configuration(); // Empty configuration.
                 }
             } else {
                 // If there is no argument after "-t", output an error message and exit the program
+                return Configuration(); // Empty configuration.
+            }
+        }
+        // Else if the argument is "-m" (the target MAC address option)...
+        else if (arg == "-m") {
+            // If there is another argument after this one...
+            if (i + 1 < argc) {
+                // Create std::string from the next argument
+                string next_arg = argv[++i];
+                // Assign the next argument to the target MAC address variable and increment the index
+                try {
+                    the_configuration.set_wol_tgt_mac_addr(next_arg);
+                } catch (invalid_argument &e) {
+                    cerr << e.what();
+                    return Configuration(); // Empty configuration.
+                }
+            } else {
+                // If there is no argument after "-m", output an error message and exit the program
                 return Configuration(); // Empty configuration.
             }
         }
@@ -78,11 +93,8 @@ int main(int argc, char *argv[]) {
 
     if (argc == 1) {
         MainMenu the_main_menu("DEV WAKE");
-        // cout << "WakeOnLan server IP: " << the_main_menu.the_configuration.wol_svr_ip_addr << "\n";
-        // cout << "Target server IP: " << the_main_menu.the_configuration.wol_tgt_ip_addr << "\n";
         the_configuration = the_main_menu.the_configuration;
-    } else if (argc == 5) {
-        cout << "5 args passed\n";
+    } else if (argc == 7) { // Updated for the additional "-m" option.
         the_configuration = parse_arg_configs(argc, argv);
         if (!the_configuration.is_valid()) {
             usage();
@@ -95,6 +107,7 @@ int main(int argc, char *argv[]) {
 
     cout << "WakeOnLan server IP: " << the_configuration.wol_svr_ip_addr << "\n";
     cout << "Target server IP: " << the_configuration.wol_tgt_ip_addr << "\n";
+    cout << "Target MAC address: " << the_configuration.wol_tgt_mac_addr << "\n";
 
     return 0;
 }
