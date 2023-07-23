@@ -74,24 +74,27 @@ Configuration parse_arg_configs(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
 
+    Configuration the_configuration;
+
     if (argc == 1) {
         MainMenu the_main_menu("DEV WAKE");
-        cout << "WakeOnLan server IP: " << the_main_menu.the_configuration.wol_svr_ip_addr << "\n";
-        cout << "Target server IP: " << the_main_menu.the_configuration.wol_tgt_ip_addr << "\n";
+        // cout << "WakeOnLan server IP: " << the_main_menu.the_configuration.wol_svr_ip_addr << "\n";
+        // cout << "Target server IP: " << the_main_menu.the_configuration.wol_tgt_ip_addr << "\n";
+        the_configuration = the_main_menu.the_configuration;
     } else if (argc == 5) {
         cout << "5 args passed\n";
-        Configuration the_configuration = parse_arg_configs(argc, argv);
+        the_configuration = parse_arg_configs(argc, argv);
         if (!the_configuration.is_valid()) {
             usage();
             return 1;
         }
-        cout << "WakeOnLan server IP: " << the_configuration.wol_svr_ip_addr << "\n";
-        cout << "Target server IP: " << the_configuration.wol_tgt_ip_addr << "\n";
-
     } else {
         usage();
         return 1;
     }
+
+    cout << "WakeOnLan server IP: " << the_configuration.wol_svr_ip_addr << "\n";
+    cout << "Target server IP: " << the_configuration.wol_tgt_ip_addr << "\n";
 
     return 0;
 }
