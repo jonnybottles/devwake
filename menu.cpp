@@ -56,7 +56,7 @@ string Menu::get_string(const string &prompt) {
 
 void Menu::quit_program(int signal) {
     if (signal == SIGINT || signal == EOF) {
-        cout << "Exiting program.\n";
+        cout << "\nExiting program.\n";
     } else {
         cerr << "Input error. Exiting program." << std::endl;
     }

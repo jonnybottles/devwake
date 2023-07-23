@@ -5,15 +5,19 @@
 
 using namespace std;
 
-Configuration::Configuration(string &wol_svr_ip_addr) : wol_svr_ip_addr(wol_svr_ip_addr) {
-    if (is_valid_ip_address(wol_svr_ip_addr)) {
+Configuration::Configuration() {
+    wol_svr_ip_addr = "";
+}
+
+void Configuration::set_wol_svr_ip_addr(string &wol_svr_ip_addr) {
+    if (is_valid_ip_addr(wol_svr_ip_addr)) {
         wol_svr_ip_addr = wol_svr_ip_addr;
     } else {
         throw invalid_argument("Invalid IPv4 address.\n");
     }
 }
 
-bool Configuration::is_valid_ip_address(string &ip_addr) {
+bool Configuration::is_valid_ip_addr(string &ip_addr) {
     std::stringstream ss(ip_addr);
     std::string segment;
     std::vector<std::string> segments;
