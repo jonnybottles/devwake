@@ -1,5 +1,6 @@
 #include "configuration.h"
 #include "main_menu.h"
+#include "wake_on_lan.h"
 #include <iostream>
 #include <string>
 
@@ -105,9 +106,26 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    cout << "WakeOnLan server IP: " << the_configuration.wol_svr_ip_addr << "\n";
-    cout << "Target server IP: " << the_configuration.wol_tgt_ip_addr << "\n";
-    cout << "Target MAC address: " << the_configuration.wol_tgt_mac_addr << "\n";
+    WakeOnLAN the_wake_on_lan(the_configuration);
+    try {
+        the_wake_on_lan.connect();
+        cout << "Connecting to WOL SVR...\n";
+        cout << "Connected to WOL SVR: " << the_configuration.wol_svr_ip_addr << "\n";
+
+        the_wake_on_lan.authenticate();
+        cout << "Authenticating with WOL SVR...\n";
+        cout << "Successfully authenticated to WOL SVR: " << the_configuration.wol_svr_ip_addr << "\n";
+
+        the_wake_on_lan.send_wol_cmd();
+        cout << "WOL SVR is sending WOL command to target host: " << the_configuration.wol_tgt_ip_addr << " / " << the_configuration.wol_tgt_mac_addr << "\n";
+
+    } catch (runtime_error &e) {
+        cerr << e.what();
+    }
+
+    // cout << "WakeOnLan server IP: " << the_configuration.wol_svr_ip_addr << "\n";
+    // cout << "Target server IP: " << the_configuration.wol_tgt_ip_addr << "\n";
+    // cout << "Target MAC address: " << the_configuration.wol_tgt_mac_addr << "\n";
 
     return 0;
 }

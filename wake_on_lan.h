@@ -4,19 +4,22 @@
 #include "configuration.h"
 #include <libssh/libssh.h>
 
-class SSHClient {
+class WakeOnLAN {
   private:
     ssh_session session;
+    Configuration the_configuration; // Add the_configuration member variable
 
   public:
-    SSHClient(Configuration the_configuration);
+    WakeOnLAN(Configuration the_configuration); // Correct the constructor name
 
-    // The tilda is used to indicate a destructor in c++
-    ~SSHClient();
+    // The tilde (~) is used to indicate a destructor in C++
+    ~WakeOnLAN();
 
     void connect();
     void authenticate();
     void disconnect();
+    void send_wol_cmd();
+    void handle_output(ssh_channel channel);
 };
 
 #endif
