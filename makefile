@@ -1,4 +1,4 @@
-# the compiler to use
+# Determines which compiler to use based upon OS
 ifeq ($(PLATFORM),WIN)
 	CXX = x86_64-w64-mingw32-g++
 	MINGW_INCLUDE = -I/usr/x86_64-w64-mingw32
