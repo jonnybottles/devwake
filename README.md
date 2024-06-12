@@ -1,7 +1,7 @@
 
-# DEVWAKE
+# Dev Wake
 
-DEVWAKE is a simple Wake-on-LAN (WOL) service application written in C++. The application allows users to wake up devices on their network by sending WOL packets.
+Dev Wake is a simple Wake-on-LAN (WOL) service application written in C++. The application allows users to wake up devices on their network by sending WOL packets.
 
 ## Features
 
