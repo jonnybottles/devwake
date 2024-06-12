@@ -1,5 +1,5 @@
 
-# Wake-on-LAN Service
+# DEVWAKE
 
 This repository contains a simple Wake-on-LAN (WOL) service application written in C++. The application allows users to wake up devices on their network by sending WOL packets.
 
